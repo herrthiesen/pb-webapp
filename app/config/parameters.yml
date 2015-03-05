@@ -1,0 +1,1 @@
+{ parameters: { database_driver: pdo_mysql, database_host: paul.becker.eu, database_port: '3306', database_name: becker, database_user: becker, database_password: GAEAaw8hue, mailer_transport: smtp, mailer_host: 127.0.0.1, mailer_user: null, mailer_password: null, locale: de, secret: a6b40e7dd37365d79b4c25e32924d2cace558fce, database_path: null } }

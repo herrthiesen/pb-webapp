@@ -1,0 +1,21 @@
+{# src/Becker/WebAppBundle/Resources/Default/views/lift.html.twig #}
+{% extends '::base.html.twig' %}
+
+{% block title %}BECKER WEBAPP{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+        <h1>PERSONENLIFTE</h1>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            {{ render(controller(
+                 'BeckerWebAppBundle:Buehnen:getBuehnenListByKategorie',
+                 { 'id': 16 }
+            )) }}  
+        </div>
+    </div>
+{% endblock %}

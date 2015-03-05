@@ -1,0 +1,42 @@
+{# src/Becker/WebAppBundle/Resources/Default/views/arbeitsbuehnen.html.twig #}
+{% extends '::base.html.twig' %}
+
+{% block title %}BECKER WEBAPP{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-lg-12">
+                <h1>ARBEITSBÜHNEN</h1>
+                </div>
+            </div>    
+            <div class="row">
+                <div class="col-xs-6 col-sm-3 col-lg-3" style="margin-bottom:5px;">
+                    <a href="../lkw" onclick="OpenLink(this); return false"><img src="{{asset('lib/img/LKW.png')}}" class="img-responsive"/></a>
+                </div>
+                <div class="col-xs-6 col-sm-3 col-lg-3" style="margin-bottom:5px;">
+                    <a href="../gelenk" onclick="OpenLink(this); return false"><img src="{{asset('lib/img/Gelenk.png')}}" class="img-responsive"/></a>
+                </div>      
+                <div class="col-xs-6 col-sm-3 col-lg-3" style="margin-bottom:5px;">
+                    <a href="../teleskop" onclick="OpenLink(this); return false"><img src="{{asset('lib/img/Teleskop.png')}}" class="img-responsive"/></a>
+                </div>   
+                <div class="col-xs-6 col-sm-3 col-lg-3" style="margin-bottom:5px;">
+                    <a href="../scheren" onclick="OpenLink(this); return false"><img src="{{asset('lib/img/Schere.png')}}" class="img-responsive"/></a>
+                </div>     
+                <div class="col-xs-6 col-sm-3 col-lg-3" style="margin-bottom:5px;">
+                    <a href="../anhaenger" onclick="OpenLink(this); return false"><img src="{{asset('lib/img/Anhaenger.png')}}" class="img-responsive"/></a>
+                </div>  
+                <div class="col-xs-6 col-sm-3 col-lg-3" style="margin-bottom:5px;">
+                    <a href="../mast" onclick="OpenLink(this); return false"><img src="{{asset('lib/img/Mast.png')}}" class="img-responsive"/></a>
+                </div>     
+                <div class="col-xs-6 col-sm-3 col-lg-3" style="margin-bottom:5px;">
+                    <a href="../lift" onclick="OpenLink(this); return false"><img src="{{asset('lib/img/Personenlift.png')}}" class="img-responsive"/></a>
+                </div>     
+                <div class="col-xs-6 col-sm-3 col-lg-3" style="margin-bottom:5px;">
+                    <a href="../ketten" onclick="OpenLink(this); return false"><img src="{{asset('lib/img/Raupe.png')}}" class="img-responsive"/></a>
+                </div>               
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{# app/Resources/views/arbeitsbuehne/buehnenDetails.html.twig #}
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+    <div class="row">
+        <div class="col-xs-12 ">
+        <h1>{{buehne.name}} <small>{{buehne.hersteller}}</small></h1>
+        </div>
+    </div>
+    
+    <div class="listenzeile row">
+        <div class="col-xs-12 col-sm-4 col-lg-4">
+           <img src="/wa/web/uploads/img/{{buehne.img}}.jpg" alt="{{buehne.name}}" class="img-responsive">
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-6">
+            <p> <span class="label label-primary">{{buehne.tag1}}</span>
+                <span class="label label-success">{{buehne.tag2}}</span>
+                <span class="label label-warning">{{buehne.tag3}}</span></p>
+            <p><strong>Arbeitshöhe:</strong> {{buehne.ahoehe}} m</p>
+            <p><strong>Korblast:</strong> {{buehne.korblast}} kg</p>
+            <p><strong>Seitl. Weitreiche:</strong> {{buehne.reichweite}} m</p>
+            <p><strong>Abstützbreite:</strong> {{buehne.stuetzbreite}} m</p>
+            <p><strong>Länge:</strong> {{buehne.laenge}} m</p>
+            <p><strong>Breite:</strong> {{buehne.breite}} m</p>
+            <p><strong>Höhe:</strong> {{buehne.hoehe}} m</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-lg-4">
+           
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-6">
+            
+        </div>
+    </div>    
+        
+        
+    {% if buehne.pdf != null %}
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-lg-4">
+            </div>
+            <div class="col-xs-12 col-sm-4 col-lg-4">
+                <a href="/wa/web/uploads/pdf/{{buehne.pdf}}.pdf" target="_blank">
+                <button type="button" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-file" aria-hidden="true"></span> PDF
+                </button>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+           <div class="col-xs-12 col-sm-12 col-lg-12">
+               <div>
+                <object data="/wa/web/uploads/pdf/{{buehne.pdf}}.pdf" type="application/pdf" width="100%" height="1000"></object>         
+               </div> 
+            </div>
+        </div>
+    {% endif %}
+    
+    </div>
+    </div>
+                
+    

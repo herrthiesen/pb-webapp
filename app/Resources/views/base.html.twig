@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html class="full" lang="de">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="viewport" content="width=device-width , initial-scale=1.0" />
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('lib/img/PB-orange.png')}}">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset('lib/img/PB-orange.png')}}">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('lib/img/PB-orange.png')}}">
+        <link rel="apple-touch-icon-precomposed" href="{{asset('lib/img/PB.png')}}">
+        
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+        
+        <link rel="stylesheet" href="{{asset('lib/bootstrap/css/bootstrap.css')}}">
+        <link rel="stylesheet" href="{{asset('lib/css/style.css')}}">
+        <link rel="stylesheet" href="{{asset('lib/tablesorter-master/css/theme.bootstrap.css')}}">
+        <link rel="stylesheet" href="{{asset('lib/tablesorter-master/css/filter.formatter.css')}}">
+        <link rel="stylesheet" href="{{asset('lib/jquery-ui/jquery-ui.min.css')}}">
+        {% endblock %} 
+        
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans|Oswald' rel='stylesheet' type='text/css'>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="{{asset('lib/jquery-ui/jquery-ui.min.js')}}"></script>
+        <script src="{{asset('lib/bootstrap/js/bootstrap.min.js')}}"></script>
+        <script src="{{asset('lib/tablesorter-master/js/jquery.tablesorter.js')}}"></script>
+        <script src="{{asset('lib/tablesorter-master/js/jquery.tablesorter.widgets.js')}}"></script>
+        <script src="{{asset('lib/tablesorter-master/js/widgets/widget-filter-formatter-jui.js')}}"></script>
+        <script type="text/javascript">
+        function OpenLink(theLink){
+            window.location.href = theLink.href;
+        }
+        </script>
+        
+    </head>
+    <body>
+        <div class="container-fluid">
+            {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>                 
+                <a class="navbar-brand" href="/wa/web/index/" onclick="OpenLink(this); return false"><img src="{{asset('lib/img/PB.png')}}" height="25px"></a>
+              </div>
+
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">ARBEITSBÜHNEN<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/wa/web/arbeitsbuehnen" onclick="OpenLink(this); return false">ÜBERSICHT</a></li>
+                            <li><a href="/wa/web/lkw" onclick="OpenLink(this); return false">LKW ARBEITSBÜHNEN</a></li>
+                            <li><a href="/wa/web/gelenk" onclick="OpenLink(this); return false">GELENKARBEITSBÜHNEN</a></li>
+                            <li><a href="/wa/web/teleskop" onclick="OpenLink(this); return false">TELESKOPARBEITSBÜHNEN</a></li>
+                            <li><a href="/wa/web/scheren" onclick="OpenLink(this); return false">SCHERENARBEITSBÜHNEN</a></li>
+                            <li><a href="/wa/web/anhaenger" onclick="OpenLink(this); return false">ANHÄNGERARBEITSBÜHNEN</a></li>                          
+                            <li><a href="/wa/web/mast" onclick="OpenLink(this); return false">MASTARBEITSBÜHNEN</a></li>                            
+                            <li><a href="/wa/web/lift" onclick="OpenLink(this); return false">PERSONENLIFTE</a></li>                                                        
+                            <li><a href="/wa/web/ketten" onclick="OpenLink(this); return false">RAUPEN- & KETTENARBEITSBÜHNEN</a></li>                                                                                    
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">TELESKOPSTAPLER<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" onclick="OpenLink(this); return false">STARRE TELESKOPSTAPLER</a></li>
+                            <li><a href="#" onclick="OpenLink(this); return false">DREHBARE TELESKOPSTAPLER</a></li>                                                                         
+                        </ul>
+                    </li>
+                    
+                </ul>
+                
+                  
+                <form class="navbar-form navbar-right" method="post" action="/wa/web/search/">
+                  <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Suche nach..." name="term" id="term">     
+                      <span class="input-group-btn">
+                      <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                      </span>
+                  </div>
+                    <a href="/wa/web/search/" onclick="OpenLink(this); return false" style="margin-right: 5px;"> <small>erweiterte Suche</small></a>
+                </form>      
+                
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+          </nav>    
+       
+
+        <div id="content">
+            <div class="row">
+                <div class="col-xs-1 col-sm-1 col-lg-1">
+                    {% if currentPath != '/wa/web/index/' %}
+                        <a HREF="previous.html" onClick="history.back();return false;" class=""><button class="btn btn-default"><</button></a>
+                    {% endif %}
+                </div>
+                <div class="col-xs-10 col-sm-10 col-lg-10">
+                    {% block body %}{% endblock %}
+                </div>
+                <div class="col-xs-1 col-sm-1 col-lg-1">
+                </div>
+        </div>
+    </div>
+    </body>
+</html>

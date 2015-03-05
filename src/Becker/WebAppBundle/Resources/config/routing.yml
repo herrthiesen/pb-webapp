@@ -1,0 +1,71 @@
+# src/Becker/WebAppBundle/Resources/config/routing.yml #
+
+becker_web_app_homepage:
+    path:     /index/
+    defaults: { _controller: BeckerWebAppBundle:Default:index }
+
+becker_web_app_eintragen:
+    path:     /eintragen/
+    defaults: { _controller: BeckerWebAppBundle:Default:eintragen }
+    
+becker_web_app_createBuehne:
+    path:     /createBuehne/
+    defaults: { _controller: BeckerWebAppBundle:Buehnen:createBuehne }
+    
+becker_web_app_erweiterteSuche:
+    path:     /advancedSearch/
+    defaults: { _controller: BeckerWebAppBundle:Default:search }
+    
+becker_web_app_search:
+    path:     /search/
+    defaults: { _controller: BeckerWebAppBundle:Default:search }
+    
+becker_web_app_allBuehnen:
+    path:     /arbeitsbuehnen/
+    defaults: { _controller: BeckerWebAppBundle:Default:arbeitsbuehnen }
+
+becker_web_app_getBuehne:
+    path:     /arbeitsbuehne/
+    defaults: { _controller: BeckerWebAppBundle:Default:arbeitsbuehne }    
+    
+becker_web_app_allLkw:
+    path:     /lkw/
+    defaults: { _controller: BeckerWebAppBundle:Default:lkw }    
+        
+becker_web_app_allGelenk:
+    path:     /gelenk/
+    defaults: { _controller: BeckerWebAppBundle:Default:gelenk }    
+    
+        
+becker_web_app_allTeleskop:
+    path:     /teleskop/
+    defaults: { _controller: BeckerWebAppBundle:Default:teleskop } 
+    
+becker_web_app_allScheren:
+    path:     /scheren/
+    defaults: { _controller: BeckerWebAppBundle:Default:scheren } 
+    
+becker_web_app_allAnhaenger:
+    path:     /anhaenger/
+    defaults: { _controller: BeckerWebAppBundle:Default:anhaenger }     
+        
+becker_web_app_allMast:
+    path:     /mast/
+    defaults: { _controller: BeckerWebAppBundle:Default:mast }           
+            
+becker_web_app_allLift:
+    path:     /lift/
+    defaults: { _controller: BeckerWebAppBundle:Default:lift }      
+    
+becker_web_app_allKetten:
+    path:     /ketten/
+    defaults: { _controller: BeckerWebAppBundle:Default:ketten }          
+        
+becker_web_app_buehneShow:
+    path:     /arbeitsbuehne/show/{id}
+    defaults: { _controller: BeckerWebAppBundle:Default:showBuehne }          
+    
+becker_web_app_marker:
+    path:     /marker/
+    defaults: { _controller: BeckerWebAppBundle:Default:marker }      
+        

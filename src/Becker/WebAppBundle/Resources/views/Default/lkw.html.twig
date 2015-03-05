@@ -1,0 +1,41 @@
+{# src/Becker/WebAppBundle/Resources/Default/views/lkw.html.twig #}
+{% extends '::base.html.twig' %}
+
+{% block title %}BECKER WEBAPP{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+        <h1>LKW <small>ARBEITSBÜHNEN</small></h1>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12 ">
+            <ul id="myTab" class="nav nav-tabs">
+                <li role="presentation" class="active"><a href="#tabelle" data-toggle="tab">TABELLE</a></li>
+                <li role="presentation"><a href="#liste" data-toggle="tab">LISTE</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active" id="tabelle">
+                    {{ render(controller(
+                            'BeckerWebAppBundle:Buehnen:getBuehnenTabelleByKategorie',
+                            { 'id': 2 }
+                       )) }} 
+                </div>
+                <div class="tab-pane fade " id="liste">
+                    {{ render(controller(
+                            'BeckerWebAppBundle:Buehnen:getBuehnenListByKategorie',
+                            { 'id': 2 }
+                       )) }}  
+                </div>
+                
+            </div>
+        </div>
+    </div>
+<script>
+   $(function () {
+      $('#myTab li:eq(0) a').tab('show');
+   });
+</script>
+{% endblock %}

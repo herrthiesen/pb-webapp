@@ -1,0 +1,9 @@
+# app/config/routing.yml #
+
+becker_web_app:
+    resource: "@BeckerWebAppBundle/Resources/config/routing.yml"
+    prefix:   /
+
+becker_web_app:
+    resource: @BeckerWebAppBundle/Controller/
+    type:     annotation

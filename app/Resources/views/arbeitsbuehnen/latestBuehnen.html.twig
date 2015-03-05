@@ -1,0 +1,23 @@
+{# app/Resources/views/arbeitsbuehne/latestBuehnen.html.twig #}
+    
+
+{% for buehne in buehnen %}        
+    <div class="listenzeile row">
+        <div class="col-xs-10 col-sm-4 col-lg-4">
+            <a href="/wa/web/app.php/arbeitsbuehne/show/{{buehne.id}}" onclick="OpenLink(this); return false">
+                <img src="/wa/web/uploads/img/{{buehne.img}}.jpg" alt="{{buehne.name}}" class="img-responsive">
+            </a>
+        </div>
+        <div class="col-xs-10 col-sm-8 col-lg-8">
+            <a href="/wa/web/app.php/arbeitsbuehne/show/{{buehne.id}}" onclick="OpenLink(this); return false">
+                <h4>{{buehne.name}} <small>{{buehne.hersteller}}</small></h4>
+                
+            <p> <span class="label label-primary">{{buehne.tag1}}</span>
+                <span class="label label-success">{{buehne.tag2}}</span>
+                <span class="label label-warning">{{buehne.tag3}}</span></p>
+            </a>
+        </div>
+    </div>
+{% endfor %}
+
+    

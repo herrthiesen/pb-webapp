@@ -1,0 +1,12 @@
+{# src/Becker/WebAppBundle/Resources/Default/views/lkw.html.twig #}
+{% extends '::base.html.twig' %}
+
+{% block title %}BECKER WEBAPP{% endblock %}
+
+{% block body %}
+    
+    {{ render(controller(
+         'BeckerWebAppBundle:Buehnen:getBuehneById',
+         { 'id': id }
+    )) }}  
+{% endblock %}

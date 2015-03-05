@@ -1,0 +1,103 @@
+<?php
+// src/Becker\WebAppBundle/Entity/Kategorie.php
+
+namespace Becker\WebAppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="kategorie")
+ */
+class Kategorie
+{
+     /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $name;   
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Kategorie
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+    
+     /**
+     * @ORM\OneToMany(targetEntity="Buehne", mappedBy="kategorie")
+     */
+    protected $buehnen;
+
+    public function __construct()
+    {
+        $this->buehnen = new ArrayCollection();
+    }
+    
+
+    /**
+     * Add buehnen
+     *
+     * @param \Becker\WebAppBundle\Entity\Buehne $buehnen
+     * @return Kategorie
+     */
+    public function addBuehnen(\Becker\WebAppBundle\Entity\Buehne $buehnen)
+    {
+        $this->buehnen[] = $buehnen;
+
+        return $this;
+    }
+
+    /**
+     * Remove buehnen
+     *
+     * @param \Becker\WebAppBundle\Entity\Buehne $buehnen
+     */
+    public function removeBuehnen(\Becker\WebAppBundle\Entity\Buehne $buehnen)
+    {
+        $this->buehnen->removeElement($buehnen);
+    }
+
+    /**
+     * Get buehnen
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBuehnen()
+    {
+        return $this->buehnen;
+    }
+}

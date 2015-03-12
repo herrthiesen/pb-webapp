@@ -15,7 +15,7 @@ class BuehnenController extends Controller
 {
     public function getBuehnenListByKategorieAction($id)
     {
-        $kategorie = $this->getDoctrine()
+        $kategorie = $this->getDoctrine() 
                 ->getRepository('BeckerWebAppBundle:Kategorie')
                 ->find($id);
         
@@ -37,11 +37,11 @@ class BuehnenController extends Controller
 
         $buehnen = $query->getResult();
         
-        //$buehnen = $kategorie->getBuehnen();
+       // //$buehnen = $kategorie->getBuehnen();
         
         return $this->render(
                 'arbeitsbuehnen/buehnenKategorie.html.twig',
-        array('buehnen' => $buehnen, 'kategorie' => $kategorie)
+        array('buehnen' => $buehnen, 'kategorien' => $kategorie)
                 );
     }
     
@@ -71,10 +71,63 @@ class BuehnenController extends Controller
         
         //$buehnen = $kategorie->getBuehnen();
         
-        return $this->render(
-                'arbeitsbuehnen/buehnenKategorieTabelle.html.twig',
-        array('buehnen' => $buehnen, 'kategorie' => $kategorie)
-                );
+        switch($id)
+        {
+            case 2:
+                return $this->render(
+                        'arbeitsbuehnen/buehnenKategorieTabelleLkw.html.twig',
+                array('buehnen' => $buehnen, 'kategorie' => $kategorie)
+                        );
+                break;
+            case 9:
+                return $this->render(
+                        'arbeitsbuehnen/buehnenKategorieTabelleGelenk.html.twig',
+                array('buehnen' => $buehnen, 'kategorie' => $kategorie)
+                        );
+                break;
+            case 10:
+                return $this->render(
+                        'arbeitsbuehnen/buehnenKategorieTabelleTeleskop.html.twig',
+                array('buehnen' => $buehnen, 'kategorie' => $kategorie)
+                        );
+                break;
+            case 13:
+                return $this->render(
+                        'arbeitsbuehnen/buehnenKategorieTabelleSchere.html.twig',
+                array('buehnen' => $buehnen, 'kategorie' => $kategorie)
+                        );
+                break;
+            case 14:
+                return $this->render(
+                        'arbeitsbuehnen/buehnenKategorieTabelleAnhaenger.html.twig',
+                array('buehnen' => $buehnen, 'kategorie' => $kategorie)
+                        );
+                break;
+            case 15:
+                return $this->render(
+                        'arbeitsbuehnen/buehnenKategorieTabelleMast.html.twig',
+                array('buehnen' => $buehnen, 'kategorie' => $kategorie)
+                        );
+                break;
+            case 16:
+                return $this->render(
+                        'arbeitsbuehnen/buehnenKategorieTabelleLifte.html.twig',
+                array('buehnen' => $buehnen, 'kategorie' => $kategorie)
+                        );
+                break;
+            case 17:
+                return $this->render(
+                        'arbeitsbuehnen/buehnenKategorieTabelleKetten.html.twig',
+                array('buehnen' => $buehnen, 'kategorie' => $kategorie)
+                        );
+                break;  
+            case 18:
+                return $this->render(
+                        'arbeitsbuehnen/KategorieTabelleStapler.html.twig',
+                array('buehnen' => $buehnen, 'kategorie' => $kategorie)
+                        );
+                break;
+        }
     }
         
     public function getKategorienAction()

@@ -9,11 +9,50 @@
             </a>
         </div>
         <div class="col-xs-12 col-sm-6 col-lg-6">
-            <h4>{{buehne.name}} <small>{{buehne.hersteller}}</small></h4>
-            <p><strong>Arbeitshöhe:</strong> {{buehne.ahoehe}} m</p>
-            <p><strong>Korblast:</strong> {{buehne.korblast}} kg</p>
-            <p><strong>Seitl. Weitreiche:</strong> {{buehne.reichweite}} m</p>
-            <p><strong>Abstützbreite:</strong> {{buehne.stuetzbreite}} m</p>
+            <h4>{{buehne.name}} 
+                {% if buehne.name starts with 'L' %}
+                    <small>{{buehne.hersteller}}</small>
+                {% endif %}
+            </h4>
+            {% if buehne.name starts with 'TS' %}
+                <p><strong>Hubhöhe:</strong> {{buehne.ahoehe}} m</p>
+            {% else %}
+                <p><strong>Arbeitshöhe:</strong> {{buehne.ahoehe}} m</p>
+            {% endif %}
+            
+            
+            {% if buehne.name starts with 'TS' %}
+                <p><strong>Hubkraft:</strong> {{buehne.korblast|replace({'.00': ''})}} kg</p>
+            {% else %}
+                <p><strong>Korblast:</strong> {{buehne.korblast|replace({'.00': ''})}} kg</p>
+            {% endif %}
+            
+            {% if buehne.name starts with 'L' %}
+                <p><strong>Seitl. Reichweite:</strong> {{buehne.reichweite}} m</p>       
+            {% elseif buehne.name starts with 'G' %}
+                <p><strong>Seitl. Reichweite:</strong> {{buehne.reichweite}} m</p>
+            {% elseif buehne.name starts with 'TS' %}
+                <p><strong>Reichweite:</strong> {{buehne.reichweite}} m</p>
+            {% elseif buehne.name starts with 'T ' %}
+                <p><strong>Seitl. Reichweite:</strong> {{buehne.reichweite}} m</p>       
+            {% elseif buehne.name starts with 'A' %}
+                <p><strong>Seitl. Reichweite:</strong> {{buehne.reichweite}} m</p>
+            {% elseif buehne.name starts with 'C' %}
+                <p><strong>Seitl. Reichweite:</strong> {{buehne.reichweite}} m</p>
+            
+            {% endif %}
+        
+            {% if buehne.name starts with 'L' %}
+                <p><strong>Abstützbreite:</strong> {{buehne.stuetzbreite}} m</p>
+            {% elseif buehne.name starts with 'A' %}
+                <p><strong>Abstützbreite:</strong> {{buehne.stuetzbreite}} m</p>
+            {% elseif buehne.name starts with 'C' %}
+                <p><strong>Abstützbreite:</strong> {{buehne.stuetzbreite}} m</p>
+            {% elseif buehne.name starts with 'P' %}
+                <p><strong>Abstützbreite:</strong> {{buehne.stuetzbreite}} m</p>
+            {% elseif buehne.name starts with 'TS' %}
+                <p><strong>Abstützbreite:</strong> {{buehne.stuetzbreite}} m</p>
+            {% endif %}
             <p> <span class="label label-primary">{{buehne.tag1}}</span>
                 <span class="label label-success">{{buehne.tag2}}</span>
                 <span class="label label-warning">{{buehne.tag3}}</span></p>

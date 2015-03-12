@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="{{asset('lib/tablesorter-master/css/theme.bootstrap.css')}}">
         <link rel="stylesheet" href="{{asset('lib/tablesorter-master/css/filter.formatter.css')}}">
         <link rel="stylesheet" href="{{asset('lib/jquery-ui/jquery-ui.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('lib/datedropper-master/datedropper.css')}}">
         {% endblock %} 
         
         <link href='http://fonts.googleapis.com/css?family=Open+Sans|Oswald' rel='stylesheet' type='text/css'>
@@ -29,6 +30,9 @@
         <script src="{{asset('lib/tablesorter-master/js/jquery.tablesorter.js')}}"></script>
         <script src="{{asset('lib/tablesorter-master/js/jquery.tablesorter.widgets.js')}}"></script>
         <script src="{{asset('lib/tablesorter-master/js/widgets/widget-filter-formatter-jui.js')}}"></script>
+        
+        <script src="{{asset('lib/datedropper-master/datedropper.js')}}"></script>
+        
         <script type="text/javascript">
         function OpenLink(theLink){
             window.location.href = theLink.href;
@@ -68,13 +72,7 @@
                             <li><a href="/wa/web/ketten" onclick="OpenLink(this); return false">RAUPEN- & KETTENARBEITSBÜHNEN</a></li>                                                                                    
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">TELESKOPSTAPLER<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" onclick="OpenLink(this); return false">STARRE TELESKOPSTAPLER</a></li>
-                            <li><a href="#" onclick="OpenLink(this); return false">DREHBARE TELESKOPSTAPLER</a></li>                                                                         
-                        </ul>
-                    </li>
+                    <li><a href="/wa/web/teleskopstapler" onclick="OpenLink(this); return false">TELESKOPSTAPLER</a></li> 
                     
                 </ul>
                 
@@ -108,5 +106,8 @@
                 </div>
         </div>
     </div>
+            <script>$( "#mietenVon" ).dateDropper({ format:"d-m-Y", lang:"de", minYear:2015, maxYear:2016, years_multiple:0, color:"#EF7D00" });</script>
+            <script>$( "#mietenBis" ).dateDropper({ format:"d-m-Y", lang:"de", minYear:2015, maxYear:2016, years_multiple:0, color:"#EF7D00" });</script>
+                
     </body>
 </html>

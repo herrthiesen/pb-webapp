@@ -3,7 +3,11 @@
         <div class="col-xs-10 col-xs-offset-1">
     <div class="row">
         <div class="col-xs-12 ">
-        <h1>{{buehne.name}} <small>{{buehne.hersteller}}</small></h1>
+            <h1>{{buehne.name}} 
+                {% if buehne.name starts with 'L' %}
+                    <small>{{buehne.hersteller}}</small>
+                {% endif %}
+            </h1>
         </div>
     </div>
     
@@ -15,10 +19,46 @@
             <p> <span class="label label-primary">{{buehne.tag1}}</span>
                 <span class="label label-success">{{buehne.tag2}}</span>
                 <span class="label label-warning">{{buehne.tag3}}</span></p>
-            <p><strong>Arbeitshöhe:</strong> {{buehne.ahoehe}} m</p>
-            <p><strong>Korblast:</strong> {{buehne.korblast}} kg</p>
-            <p><strong>Seitl. Weitreiche:</strong> {{buehne.reichweite}} m</p>
-            <p><strong>Abstützbreite:</strong> {{buehne.stuetzbreite}} m</p>
+            
+            {% if buehne.name starts with 'TS' %}
+                <p><strong>Hubhöhe:</strong> {{buehne.ahoehe}} m</p>
+            {% else %}
+                <p><strong>Arbeitshöhe:</strong> {{buehne.ahoehe}} m</p>
+            {% endif %}
+                        
+            {% if buehne.name starts with 'TS' %}
+                <p><strong>Hubkraft:</strong> {{buehne.korblast|replace({'.00': ''})}} kg</p>
+            {% else %}
+                <p><strong>Korblast:</strong> {{buehne.korblast|replace({'.00': ''})}} kg</p>
+            {% endif %}
+            
+            {% if buehne.name starts with 'L' %}
+                <p><strong>Seitl. Reichweite:</strong> {{buehne.reichweite}} m</p>       
+            {% elseif buehne.name starts with 'G' %}
+                <p><strong>Seitl. Reichweite:</strong> {{buehne.reichweite}} m</p>
+            {% elseif buehne.name starts with 'TS' %}
+                <p><strong>Reichweite:</strong> {{buehne.reichweite}} m</p>
+            {% elseif buehne.name starts with 'T ' %}
+                <p><strong>Seitl. Reichweite:</strong> {{buehne.reichweite}} m</p>       
+            {% elseif buehne.name starts with 'A' %}
+                <p><strong>Seitl. Reichweite:</strong> {{buehne.reichweite}} m</p>
+            {% elseif buehne.name starts with 'C' %}
+                <p><strong>Seitl. Reichweite:</strong> {{buehne.reichweite}} m</p>
+            
+            {% endif %}
+            
+            
+            {% if buehne.name starts with 'L' %}
+                <p><strong>Abstützbreite:</strong> {{buehne.stuetzbreite}} m</p>
+            {% elseif buehne.name starts with 'A' %}
+                <p><strong>Abstützbreite:</strong> {{buehne.stuetzbreite}} m</p>
+            {% elseif buehne.name starts with 'C' %}
+                <p><strong>Abstützbreite:</strong> {{buehne.stuetzbreite}} m</p>
+            {% elseif buehne.name starts with 'P' %}
+                <p><strong>Abstützbreite:</strong> {{buehne.stuetzbreite}} m</p>
+            {% elseif buehne.name starts with 'TS' %}
+                <p><strong>Abstützbreite:</strong> {{buehne.stuetzbreite}} m</p>
+            {% endif %}
             <p><strong>Länge:</strong> {{buehne.laenge}} m</p>
             <p><strong>Breite:</strong> {{buehne.breite}} m</p>
             <p><strong>Höhe:</strong> {{buehne.hoehe}} m</p>
@@ -33,19 +73,28 @@
         </div>
     </div>    
         
-        
+
+            
+            
+            
     {% if buehne.pdf != null %}
+        <div class="row spacer"></div>
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-lg-4">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                  <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Anfragen
+                </button>
             </div>
             <div class="col-xs-12 col-sm-4 col-lg-4">
                 <a href="/wa/web/uploads/pdf/{{buehne.pdf}}.pdf" target="_blank">
                 <button type="button" class="btn btn-default btn-lg">
-                    <span class="glyphicon glyphicon-file" aria-hidden="true"></span> PDF
+                    <span class="glyphicon glyphicon-file" aria-hidden="true"></span> PDF Datenblatt
                 </button>
                 </a>
             </div>
         </div>
+        <div class="row spacer"></div>    
         <div class="row">
            <div class="col-xs-12 col-sm-12 col-lg-12">
                <div>
@@ -57,5 +106,25 @@
     
     </div>
     </div>
-                
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">MIETANFRAGE SENDEN</h4>
+      </div>
+      <div class="modal-body">
+          {% render controller('BeckerWebAppBundle:Default:anfragen', {'buehne' : buehne.Name, 'buehneId' : buehne.id}), { 'alt': 'BlogBundle:Post:error' }  %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+            
     

@@ -7,13 +7,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use Becker\WebAppBundle\Entity\Buehne;
 use Becker\WebAppBundle\Entity\Kategorie;
+use Becker\WebAppBundle\Entity\Anfrage;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityRepository;
 use Becker\WebAppBundle\Form\EintragenForm;
 use Becker\WebAppBundle\Form\ErweiterteSucheForm;
+use Becker\WebAppBundle\Form\AnfrageBuehneForm;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Doctrine\DBAL\DriverManager;
 
 
 class DefaultController extends Controller
@@ -32,6 +35,20 @@ class DefaultController extends Controller
         $form = $this->createForm(new EintragenForm(), $buehne);
         
         return $this->render('BeckerWebAppBundle:Default:eintragen.html.twig', array('form' => $form->createView(), $buehne));
+    }
+    
+    public function anfragenAction($buehne, $buehneId)
+    {
+//        echo 'Controller';
+//        $anfrage = new Anfrage();
+//        echo 'new Anfrage';
+//        //$em = $this->getDoctrine()->getManager();
+//        echo 'getManager';
+//        //$em->persist($anfrage);
+        //echo 'Persist';
+        $form = $this->createForm(new AnfrageBuehneForm());
+        
+        return $this->render('BeckerWebAppBundle:Default:anfrage.html.twig', array('form' => $form->createView(), 'buehneName' => $buehne, 'buehneId' => $buehneId));
     }
     
     public function searchAction(Request $request)
@@ -229,6 +246,11 @@ class DefaultController extends Controller
         return $this->render('BeckerWebAppBundle:Default:ketten.html.twig');
     }
     
+    public function teleskopstaplerAction()
+    {
+        return $this->render('BeckerWebAppBundle:Default:teleskopstapler.html.twig');
+    } 
+    
      /**
      * 
      * @Route("/arbeitsbuehne/create")
@@ -272,7 +294,20 @@ class DefaultController extends Controller
                         
         return $this->render('BeckerWebAppBundle:Default:arbeitsbuehne.html.twig', array('id' => $id));
         
-    }   
+    }  
+    
+    public function showBuehneSuccessAction($id, $success)
+    {      
+        
+        //$form = $this->createForm(new anfrageBuehneForm(), $id);
+        
+        //return $this->render('BeckerWebAppBundle:Default:eintragen.html.twig', array('form' => $form->createView(), $buehne));
+        echo '<div class="alert alert-success" role="alert"><strong>Vielen Dank!</strong> Ihre Anfrage wurde erfolgreich verschickt.</div>';
+                        
+        return $this->render('BeckerWebAppBundle:Default:arbeitsbuehne.html.twig', array('id' => $id));
+        
+    }  
+    
 
     public function markerAction()
     {      
@@ -294,5 +329,156 @@ class DefaultController extends Controller
         return $this->render('BeckerWebAppBundle:Default:marker.html.twig');
         
     }  
+    
+    public function getGPAction()
+    {       
+        $conn = $this->container->get('database_connection');
+        $sql = 'SELECT a.*
+            FROM gp f 
+            JOIN ClosureTable a ON (f.nlid = a.descendant_id)
+            WHERE a.descendant_id = 15';
+        $rows = $conn->query($sql);
+        
+        if(!$conn)
+        {
+            return new Response('NO ');
+        }
+        else 
+        {
+            while ($row = $rows->fetch()) 
+            {                
+                echo $row['ancestor_id'].' '.$row['descendant_id'].'</br>';
+                $anc = $row['ancestor_id'];
+                do
+                {
+                    $conn2 = $this->container->get('database_connection');
+                    $sql2 = 'SELECT a.ancestor_id, a.level
+                        FROM ClosureTable a 
+                        WHERE a.descendant_id = '.$anc.' AND a.level = 1';
+
+                    $rows2 = $conn->query($sql2);
+                    while ($row2 = $rows2->fetch()) 
+                    { 
+                        $anc2 = $row2['ancestor_id'];
+                        $level = $row2['level'] + 1;
+                        echo ' VORFAHRE '.$anc2.' '.$level.' '.'</br></br>';
+                        $anc = $anc2;
+                    }
+                } while (!$anc);
+                
+                if(!$anc)
+                {
+                    echo '</br> ENDE ';
+                }
+            }
+            $count  = count($rows);
+            
+            //UPDATE LEVEL FOR NEW GP
+            $newId = 18;
+            $conn = $this->container->get('database_connection');
+            $sql = 'SELECT a.ancestor_id, a.level
+                FROM ClosureTable a WHERE a.descendant_id = '.$newId.' AND a.level = 1';
+            $result = $conn->query($sql);
+            
+            while ($row = $result->fetch()) 
+            {  
+               echo  $row['ancestor_id'].$row['level'];
+                
+                $seekId = $row['ancestor_id'];
+                
+                $i = 0;
+                while($seekId > 0)
+                {
+                    $i++;
+                       $seekId = $this->getNextLevelAction($seekId, $newId, $i);
+                }
+                
+//               if(count($this->getNextLevelAction($seekId) > 0))
+//                  {
+//                   echo 'GOT SOME!';   
+//                  }
+                
+            }
+            
+            return new Response('</br>YES '.$sql);
+
+        }
+        
+        
+//        $rows = $conn->query($sql);   
+//        
+//        while ($row = $rows->fetch()) {
+//            echo $row['nlid'];
+//        
+//        return new Response('GP ');
+    }
+    
+    public function getNextLevelAction($id, $newId, $level)
+    {
+           $conn = $this->container->get('database_connection');
+            $sql = 'SELECT a.ancestor_id, a.level
+                FROM ClosureTable a WHERE a.descendant_id = '.$id.' AND a.level = 1';
+            $result = $conn->query($sql);
+            
+            while ($row = $result->fetch()) 
+            {  
+                $i = $level + 1;
+                $conn2 = $this->container->get('database_connection');
+                
+                $update = 'UPDATE ClosureTable SET level = ? WHERE a.ancestor_id = ? AND a.descendant_id = ?';
+                echo '<br>'.$update;
+                
+                $anc = $row['ancestor_id'];
+                
+                $count = $conn2->executeUpdate('UPDATE ClosureTable SET level = ? WHERE ancestor_id = ? AND descendant_id = ?', array($i, $anc, $newId));
+                echo  '<br>'.$row['ancestor_id'].$i;
+               return $row['ancestor_id'];
+            }
+        return null;
+    }
+    
+    
+    public function sendeAnfrageAction(Request $request)
+    {
+        if ($request->getMethod() == 'POST')
+        {            
+            $data = $request->request->all();
+            //echo 'Data<br>'.count($data);
+            //print_r($data);
+            
+            //FETCHING BUEHNENAME FROM DB
+            $id = $data['becker_webappbundle_anfrageBuehne']['buehne_id'];
+            $conn = $this->container->get('database_connection');
+            $sql = 'SELECT name
+                FROM buehne WHERE id = '.$id;
+            $rows = $conn->query($sql);
+            
+            if($conn)
+            {
+                $row = $rows->fetchAll();
+                $name = $row[0]['name'];
+                //print_r($row);
+                array_push($data, $name);
+                //print_r($data);
+            }
+            
+            $mailer = $this->get('mailer');
+            $message = $mailer->createMessage()
+                ->setSubject('Mietanfrage für '.$name)
+                ->setFrom('denzlingen.ab@becker.eu')
+                ->setTo('s.thiesen@becker.eu')
+                ->setBody(
+                    $this->renderView(
+                        'Emails/anfrage.html.twig',
+                        array('data' => $data)
+                    ),
+                    'text/html'
+                );
+            $mailer->send($message);
+          
+        }
+        return $this->redirectToRoute('becker_web_app_buehneShowSuccess', array('id' => $id, 'success' => 1));
+        
+        }
     
 }

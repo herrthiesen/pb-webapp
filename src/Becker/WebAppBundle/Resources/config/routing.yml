@@ -57,15 +57,39 @@ becker_web_app_allLift:
     path:     /lift/
     defaults: { _controller: BeckerWebAppBundle:Default:lift }      
     
-becker_web_app_allKetten:
+becker_web_app_allKetten: 
     path:     /ketten/
-    defaults: { _controller: BeckerWebAppBundle:Default:ketten }          
+    defaults: { _controller: BeckerWebAppBundle:Default:ketten }
+    
+becker_web_app_allTeleskopstapler: 
+    path:     /teleskopstapler/
+    defaults: { _controller: BeckerWebAppBundle:Default:teleskopstapler }     
         
 becker_web_app_buehneShow:
     path:     /arbeitsbuehne/show/{id}
-    defaults: { _controller: BeckerWebAppBundle:Default:showBuehne }          
+    defaults: { _controller: BeckerWebAppBundle:Default:showBuehne }  
+    
+becker_web_app_buehneShowSuccess:
+    path:     /arbeitsbuehne/show/{id}/{success}
+    defaults: { _controller: BeckerWebAppBundle:Default:showBuehneSuccess }  
     
 becker_web_app_marker:
     path:     /marker/
-    defaults: { _controller: BeckerWebAppBundle:Default:marker }      
+    defaults: { _controller: BeckerWebAppBundle:Default:marker }   
+    
+becker_web_app_login:  
+    path:     /login/
+    defaults: { _controller: BeckerWebAppBundle:Security:login } 
+    
+becker_web_app_login_Check: 
+    path:     /login_check/  
+    defaults: { _controller: BeckerWebAppBundle:Securtiy:loginCheck } 
+
+becker_web_app_gp: 
+    path:     /gp/  
+    defaults: { _controller: BeckerWebAppBundle:Default:getGP } 
+    
+becker_web_app_sendeAnfrage: 
+    path:     /sendeAnfrage/  
+    defaults: { _controller: BeckerWebAppBundle:Default:sendeAnfrage }  
         

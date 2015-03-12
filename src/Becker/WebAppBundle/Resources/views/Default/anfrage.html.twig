@@ -1,0 +1,93 @@
+{# src/Becker/WebAppBundle/Resources/Default/views/anfrage.html.twig #}   
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1"> 
+            <h2>ANFRAGE FÜR {{ buehneName }}</h2>
+            {{ form_start(form) }}
+                {{ form_errors(form) }}            
+            <div class="row">
+                <div class="col-xs-5">
+                    {{ form_widget(form.buehneName, {'attr':{'value' : buehneName, 'disabled': 'disabled'}} ) }}
+                    {{ form_errors(form.buehneName) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5">
+                    {{ form_widget(form.buehne_id, {'attr':{'value' : buehneId}} ) }}
+                    {{ form_errors(form.buehneName) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5">
+                    {{ form_widget(form.mietenVom, {'id' : 'mietenVon', 'type': 'text', 'class': 'form-control'}) }}
+                    {{ form_errors(form.mietenVom) }}
+                </div>
+                <div class="col-xs-5">
+                    {{ form_widget(form.mietenBis, {'id' : 'mietenBis', 'type': 'text', 'class': 'form-control'}) }}
+                    {{ form_errors(form.mietenBis) }}
+                </div>
+            </div>
+            <div class="row spacer">
+                
+            </div>
+            <div class="row">
+                <div class="col-xs-10">
+                    {{ form_widget(form.einsatzort, {'attr':{'class' : 'form-control'}}) }}
+                    {{ form_errors(form.einsatzort) }}
+                </div>
+            </div>
+            <div class="row spacer">
+                
+            </div>
+            <div class="row">
+                <div class="col-xs-5">
+                    {{ form_widget(form.m_w, {'attr':{'class' : 'form-control'}}) }}
+                    {{ form_errors(form.m_w) }}
+                </div>
+                <div class="col-xs-5">
+                    {{ form_widget(form.kundeName, {'attr':{'class' : 'form-control'}}) }}
+                    {{ form_errors(form.kundeName) }}
+                </div>
+            </div>
+            <div class="row spacer">
+                
+            </div>
+            <div class="row">
+                <div class="col-xs-10">
+                    {{ form_widget(form.kundeFirma) }}
+                    {{ form_errors(form.kundeFirma) }}
+                </div>
+            </div>
+            <div class="row spacer">
+                
+            </div>
+            <div class="row">
+                <div class="col-xs-5">
+                    {{ form_widget(form.kundeTel) }}
+                    {{ form_errors(form.kundeTel) }}                    
+                </div>
+                <div class="col-xs-5">
+                    {{ form_widget(form.kundeEmail) }}
+                    {{ form_errors(form.kundeEmail) }}
+                </div>
+            </div>
+            <div class="row spacer">
+                
+            </div>
+            <div class="row">
+                <div class="col-xs-10">
+                    {{ form_widget(form.bemerkung) }}
+                    {{ form_errors(form.bemerkung) }}
+                </div>
+            </div>
+            <div class="row spacer">
+                
+            </div>
+            <div class="row">
+            <div class="col-xs-5 col-xs-offset-5"> 
+                {{ form_widget(form.senden, {'attr':{'class' : 'btn btn-default'}}) }}   
+                </div>
+            </div> 
+            {{ form_end(form) }}
+        </div>
+    </div>
+

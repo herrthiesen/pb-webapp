@@ -1,0 +1,21 @@
+Becker\WebAppBundle\Entity\Anfrage:
+    properties:
+        mietenVom:
+            - Date: ~
+        mietenBis:
+            - Date: ~
+        kundeName:
+            - NotBlank: ~
+            - Length:
+                min: 3
+        kundeTel:
+            - NotBlank: ~
+            - Length:
+                min: 3
+        einsatzort:
+            - NotBlank: ~
+            - Length:
+                min: 3
+        kundeEmail:
+            - Email:
+                checkMX: true 

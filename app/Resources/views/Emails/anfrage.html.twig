@@ -1,0 +1,117 @@
+<style>
+   @import url(http://fonts.googleapis.com/css?family=Oswald:400,700|Open+Sans);
+    p {
+        font-family: 'Open Sans', sans-serif;
+        color: #292929;
+    }
+    
+    td {
+        font-family: 'Open Sans', sans-serif;   
+        color: #292929;
+    }
+    h1 {
+       font-family: Oswald, 'Times New Roman', sans-serif;
+       color: #004A9A;
+       font-size: 30px;
+        padding-left: 10px;
+    }
+    
+    h2 {
+       font-family: Oswald, 'Times New Roman', sans-serif;
+       color: #EF7D00;
+       font-size: 24px;
+    }
+    
+    h3 {
+       font-family: Oswald, 'Times New Roman', sans-serif;
+       color: #004A9A;
+       font-size: 20px;
+    }
+    
+    .header {
+        width: 100%;
+        height: 100px;
+        background-color:#EF7D00;
+    }
+</style>
+{% set link = 'http://paul.becker.eu/wa/web/arbeitsbuehne/show/' ~ data.becker_webappbundle_anfrageBuehne.buehne_id %}
+<div class="header"><h3>&nbsp;BECKER ONLINE-KATALOG</h3></div>
+<h1>NEUE MIETANFRAGE </h1>
+
+<p>Gerade ist eine neue Mietanfrage über unseren Online-Katalog eingegangen. Für die Mietanfrage liegen folgende Daten vor.</p>
+
+
+<table width="70%">
+    <tr>
+        <td width="250px">
+            <p><strong>FIRMA</strong><br>
+                {% if data.becker_webappbundle_anfrageBuehne.kundeFirma == '' %}
+                    -
+                {% endif %}
+                {{data.becker_webappbundle_anfrageBuehne.kundeFirma}}
+            </p>
+            <p><strong>NAME</strong><br>
+                {% if data.becker_webappbundle_anfrageBuehne.kundeName == '' %}
+                    -
+                {% else %}
+                {% if data.becker_webappbundle_anfrageBuehne.m_w == 'w' %}
+                    Frau&nbsp;
+                    {% else %}
+                    Herr&nbsp;
+                    {% endif %}
+                    {{data.becker_webappbundle_anfrageBuehne.kundeName}}
+                {% endif %}
+            </p>
+            <p><strong>EMAIL</strong><br>
+                {% if data.becker_webappbundle_anfrageBuehne.kundeEmail == '' %}
+                    -
+                {% endif %}
+            {{data.becker_webappbundle_anfrageBuehne.kundeEmail}}
+            </p>
+            <p><strong>TELEFON</strong><br>
+                {% if data.becker_webappbundle_anfrageBuehne.kundeTel == '' %}
+                    -
+                {% endif %}
+            {{data.becker_webappbundle_anfrageBuehne.kundeTel}}
+            </p>
+        </td>
+        <td>
+            <p><strong>MASCHINE</strong><br>
+                {% if data.0 == '' %}
+                    -
+                {% endif %}
+            {{data.0}}
+            </p>
+            <p><strong>MIETBEGINN</strong><br>
+                {% if data.becker_webappbundle_anfrageBuehne.mietenVom == '' %}
+                    -
+                {% endif %}
+            {{data.becker_webappbundle_anfrageBuehne.mietenVom}}
+            </p>
+            <p><strong>MIETENDE</strong><br>
+                {% if data.becker_webappbundle_anfrageBuehne.mietenBis == '' %}
+                    -
+                {% endif %}
+            {{data.becker_webappbundle_anfrageBuehne.mietenBis}}
+            </p>
+            <p><strong>EINSATZORT</strong><br>
+                {% if data.becker_webappbundle_anfrageBuehne.einsatzort == '' %}
+                    -
+                {% endif %}
+            {{data.becker_webappbundle_anfrageBuehne.einsatzort}}
+            </p>
+            <p><strong>BEMERKUNG</strong><br>
+                {% if data.becker_webappbundle_anfrageBuehne.bemerkung == '' %}
+                    -
+                {% endif %}
+            {{data.becker_webappbundle_anfrageBuehne.bemerkung}}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td width="250px"></td>
+        <td><a href="{{link}}"><h3>ZUR MASCHINE</h3></a> </td>
+    </tr>
+</table>
+<div class="header"><p><small>&nbsp;Diese Email wurde automatisch generiert.</small></p></div>
+    

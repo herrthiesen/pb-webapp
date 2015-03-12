@@ -37,7 +37,7 @@ class BuehnenController extends Controller
 
         $buehnen = $query->getResult();
         
-       // //$buehnen = $kategorie->getBuehnen();
+       //// //$buehnen = $kategorie->getBuehnen();
         
         return $this->render(
                 'arbeitsbuehnen/buehnenKategorie.html.twig',

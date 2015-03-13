@@ -37,20 +37,6 @@ class DefaultController extends Controller
         return $this->render('BeckerWebAppBundle:Default:eintragen.html.twig', array('form' => $form->createView(), $buehne));
     }
     
-    public function anfragenAction($buehne, $buehneId)
-    {
-//        echo 'Controller';
-//        $anfrage = new Anfrage();
-//        echo 'new Anfrage';
-//        //$em = $this->getDoctrine()->getManager();
-//        echo 'getManager';
-//        //$em->persist($anfrage);
-        //echo 'Persist';
-        $form = $this->createForm(new AnfrageBuehneForm());
-        
-        return $this->render('BeckerWebAppBundle:Default:anfrage.html.twig', array('form' => $form->createView(), 'buehneName' => $buehne, 'buehneId' => $buehneId));
-    }
-    
     public function searchAction(Request $request)
     {
         if ($request->getMethod() == 'POST')
@@ -438,6 +424,23 @@ class DefaultController extends Controller
     }
     
     /**
+    * Call Anfrage Form
+    * 
+    * @parameter buehneName & buehneId
+    * @return Renders Anfrage Form
+    */
+
+    public function anfragenAction($buehne, $buehneId)
+    {
+        $form = $this->createForm(new AnfrageBuehneForm());
+
+        return $this->render('BeckerWebAppBundle:Default:anfrage.html.twig', 
+                             array('form' => $form->createView(), 
+                                   'buehneName' => $buehne, 
+                                   'buehneId' => $buehneId));
+    }
+    
+    /**
     * Sends the Anfrage form content per email
     * and store it to db
     * 
@@ -513,18 +516,9 @@ class DefaultController extends Controller
     public function storeAnfrageToDbAction($data)        
     {
         //=========================
-        // Create new Anfrage and set attributes
-        // from data form
+        // get form data
         //=========================
-        /*$anfrage = new Anfrage();
-        echo 'anfrage';
-        $em = $this->getDoctrine()->getManager();
-        echo 'get Manager';
-        $em->flush();
-        echo 'flush';
-        $em->persist($anfrage);
-        echo 'persist';*/
-        
+      
         $buehne_id = $data['becker_webappbundle_anfrageBuehne']['buehne_id'];
         $mietenVom = $data['becker_webappbundle_anfrageBuehne']['mietenVom'];
         $mietenBis = $data['becker_webappbundle_anfrageBuehne']['mietenBis'];
@@ -535,14 +529,12 @@ class DefaultController extends Controller
         $bemerkung = $data['becker_webappbundle_anfrageBuehne']['bemerkung'];
         $einsatzort = $data['becker_webappbundle_anfrageBuehne']['einsatzort'];
         
-            
         
-        //echo 'prepared';
+        //=========================
+        // insert into db
+        //=========================
         $conn = $this->container->get('database_connection');
-        //echo 'conn builed';
-        
-        
-        
+       
         $conn->insert('anfrage', 
                       array('buehne_id' => $buehne_id, 
                             'mietenVom' => $mietenVom,
@@ -554,9 +546,7 @@ class DefaultController extends Controller
                             'bemerkung' => $bemerkung,
                             'einsatzort' => $einsatzort
                            ));
-        //echo 'inserted';
-       
-                                   
+                                          
         return new Response ('');
     }
     

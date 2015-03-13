@@ -6,7 +6,7 @@ framework:
         resource: "%kernel.root_dir%/config/routing_dev.yml"
         strict_requirements: true
     profiler: { only_exceptions: false }
-    validation:      { enabled: true, enable_annotations: true }
+    validation:      { enable_annotations: true }
 
 web_profiler:
     toolbar: true

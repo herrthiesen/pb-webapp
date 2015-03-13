@@ -437,16 +437,24 @@ class DefaultController extends Controller
         return null;
     }
     
-    
+    /**
+    * Sends the Anfrage form content per email
+    * and store it to db
+    * 
+    * @return to the buehne details page with msg
+    */
     public function sendeAnfrageAction(Request $request)
     {
         if ($request->getMethod() == 'POST')
-        {            
+        {   
+            //=========================
+            // getting all form data
+            //=========================
             $data = $request->request->all();
-            //echo 'Data<br>'.count($data);
-            //print_r($data);
             
+            //=========================
             //FETCHING BUEHNENAME FROM DB
+            //=========================
             $id = $data['becker_webappbundle_anfrageBuehne']['buehne_id'];
             $conn = $this->container->get('database_connection');
             $sql = 'SELECT name
@@ -456,12 +464,14 @@ class DefaultController extends Controller
             if($conn)
             {
                 $row = $rows->fetchAll();
-                $name = $row[0]['name'];
-                //print_r($row);
+                $name = $row[0]['name'];            
+                //push the buehne name to form data array
                 array_push($data, $name);
-                //print_r($data);
             }
             
+            //=========================
+            // preparing the anfrage email and send it
+            //=========================
             $mailer = $this->get('mailer');
             $message = $mailer->createMessage()
                 ->setSubject('Mietanfrage für '.$name)
@@ -475,10 +485,79 @@ class DefaultController extends Controller
                     'text/html'
                 );
             $mailer->send($message);
+
+            //=========================
+            // send anfrage to db
+            //=========================
+            echo 'send';
+            $this->storeAnfrageToDbAction($data);
           
         }
-        return $this->redirectToRoute('becker_web_app_buehneShowSuccess', array('id' => $id, 'success' => 1));
+        //=========================
+        // Go back to the current buehne Details page 
+        // and show success message
+        //=========================
+        return $this->
+            redirectToRoute('becker_web_app_buehneShowSuccess', 
+                            array('id' => $id, 'success' => 1)); 
         
-        }
+        return new Response ('');
+    }
+    
+    /**
+    * Store Anfrage form data array to db
+    *
+    * @param (array) form data
+    * @return true/fals
+    */
+    public function storeAnfrageToDbAction($data)        
+    {
+        //=========================
+        // Create new Anfrage and set attributes
+        // from data form
+        //=========================
+        /*$anfrage = new Anfrage();
+        echo 'anfrage';
+        $em = $this->getDoctrine()->getManager();
+        echo 'get Manager';
+        $em->flush();
+        echo 'flush';
+        $em->persist($anfrage);
+        echo 'persist';*/
+        
+        $buehne_id = $data['becker_webappbundle_anfrageBuehne']['buehne_id'];
+        $mietenVom = $data['becker_webappbundle_anfrageBuehne']['mietenVom'];
+        $mietenBis = $data['becker_webappbundle_anfrageBuehne']['mietenBis'];
+        $kundeName = $data['becker_webappbundle_anfrageBuehne']['kundeName'];
+        $kundeFirma = $data['becker_webappbundle_anfrageBuehne']['kundeFirma'];
+        $kundeEmail = $data['becker_webappbundle_anfrageBuehne']['kundeEmail'];
+        $kundeTel = $data['becker_webappbundle_anfrageBuehne']['kundeTel'];
+        $bemerkung = $data['becker_webappbundle_anfrageBuehne']['bemerkung'];
+        $einsatzort = $data['becker_webappbundle_anfrageBuehne']['einsatzort'];
+        
+            
+        
+        //echo 'prepared';
+        $conn = $this->container->get('database_connection');
+        //echo 'conn builed';
+        
+        
+        
+        $conn->insert('anfrage', 
+                      array('buehne_id' => $buehne_id, 
+                            'mietenVom' => $mietenVom,
+                            'mietenBis' => $mietenBis,
+                            'kundeName' => $kundeName,
+                            'kundeFirma' => $kundeFirma,
+                            'kundeEmail' => $kundeEmail,
+                            'kundeTel' => $kundeTel,
+                            'bemerkung' => $bemerkung,
+                            'einsatzort' => $einsatzort
+                           ));
+        //echo 'inserted';
+       
+                                   
+        return new Response ('');
+    }
     
 }

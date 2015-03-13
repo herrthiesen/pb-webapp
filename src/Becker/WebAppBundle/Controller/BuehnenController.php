@@ -45,7 +45,7 @@ class BuehnenController extends Controller
                 );
     }
     
-        public function getBuehnenTabelleByKategorieAction($id)
+    public function getBuehnenTabelleByKategorieAction($id)
     {
         $kategorie = $this->getDoctrine()
                 ->getRepository('BeckerWebAppBundle:Kategorie')
@@ -56,7 +56,7 @@ class BuehnenController extends Controller
                     'Keine Kategorie gefunden mit der ID'.$id
             );
         }
-        
+                
         $repository = $this->getDoctrine()
         ->getRepository('BeckerWebAppBundle:Buehne');
         

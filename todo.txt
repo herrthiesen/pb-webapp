@@ -1,0 +1,2 @@
+- sendeAnfrageAction add failure return
+

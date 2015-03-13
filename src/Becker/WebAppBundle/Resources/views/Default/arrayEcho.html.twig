@@ -1,0 +1,17 @@
+
+
+<br/>
+{% set i = results|length %}
+{% set j = 0 %}
+{{results|length}}<br>
+{{ i }} {{j}}
+<br/>
+{{results[0]['ID']}}
+<br/>
+
+{% for key in results|keys %}
+    <button class="btn btn-default">
+        {{results[j]['ID']}} {{results[j]['nlid']}} {{results[j]['parent_nlid']}}
+    </button>
+    {% set j = j + 1 %}
+{% endfor %}

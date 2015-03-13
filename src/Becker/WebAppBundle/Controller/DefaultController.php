@@ -318,7 +318,10 @@ class DefaultController extends Controller
     
     public function getGPAction()
     {       
-        $conn = $this->container->get('database_connection');
+        
+        return $this->renderArrayResultsAction();
+        
+        /*$conn = $this->container->get('database_connection');
         $sql = 'SELECT a.*
             FROM gp f 
             JOIN ClosureTable a ON (f.nlid = a.descendant_id)
@@ -377,49 +380,56 @@ class DefaultController extends Controller
                 {
                     $i++;
                        $seekId = $this->getNextLevelAction($seekId, $newId, $i);
-                }
-                
-//               if(count($this->getNextLevelAction($seekId) > 0))
-//                  {
-//                   echo 'GOT SOME!';   
-//                  }
-                
+                }                
             }
             
             return new Response('</br>YES '.$sql);
 
-        }
+        }*/
+        return new Response('</br>YES '.$sql);
+    }
+    
+    public function renderArrayResultsAction()
+    {
+        //echo '============================<br>';
         
+        $conn = $this->container->get('database_connection');
+        $sql = 'SELECT f.*
+            FROM gp f';
+        $rows = $conn->query($sql);
+        $results = $rows->fetchAll();
         
-//        $rows = $conn->query($sql);   
-//        
-//        while ($row = $rows->fetch()) {
-//            echo $row['nlid'];
-//        
-//        return new Response('GP ');
+       // print_r($results);
+        //echo '<br>============================<br>';
+       // return $this->render('BeckerWebAppBundle:Default:teleskopstapler.html.twig');
+        
+        return $this->render('BeckerWebAppBundle:Default:arrayEcho.html.twig', array('results' => $results));
     }
     
     public function getNextLevelAction($id, $newId, $level)
     {
-           $conn = $this->container->get('database_connection');
-            $sql = 'SELECT a.ancestor_id, a.level
-                FROM ClosureTable a WHERE a.descendant_id = '.$id.' AND a.level = 1';
-            $result = $conn->query($sql);
-            
-            while ($row = $result->fetch()) 
-            {  
-                $i = $level + 1;
-                $conn2 = $this->container->get('database_connection');
-                
-                $update = 'UPDATE ClosureTable SET level = ? WHERE a.ancestor_id = ? AND a.descendant_id = ?';
-                echo '<br>'.$update;
-                
-                $anc = $row['ancestor_id'];
-                
-                $count = $conn2->executeUpdate('UPDATE ClosureTable SET level = ? WHERE ancestor_id = ? AND descendant_id = ?', array($i, $anc, $newId));
-                echo  '<br>'.$row['ancestor_id'].$i;
-               return $row['ancestor_id'];
-            }
+        $conn = $this->container->get('database_connection');
+        $sql = 'SELECT a.ancestor_id, a.level
+            FROM ClosureTable a WHERE a.descendant_id = '.$id.' AND a.level = 1';
+        $result = $conn->query($sql);
+
+        while ($row = $result->fetch()) 
+        {  
+            $i = $level + 1;
+            $conn2 = $this->container->get('database_connection');
+
+            $update = 'UPDATE ClosureTable SET level = ? WHERE a.ancestor_id = ? AND a.descendant_id = ?';
+            echo '<br>'.$update;
+
+            $anc = $row['ancestor_id'];
+
+            $count = $conn2->executeUpdate('UPDATE ClosureTable SET level = ? WHERE ancestor_id = ? AND descendant_id = ?', array($i, $anc, $newId));
+            echo  '<br>'.$row['ancestor_id'].$i;
+
+
+            return $row['ancestor_id'];
+        }
+        
         return null;
     }
     

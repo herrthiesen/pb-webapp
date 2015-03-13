@@ -12,18 +12,7 @@
     <thead>
         <tr class="dark-row">
             <th data-placeholder="z.B. 220">Typ <button type="button" class="btn-small  btn-default" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" title="Typ Legende" 
-            data-content="<p style='font-size:10px;'><b>A</b>  Anhänger   <b>B</b>	Batterie</p>
-            <p style='font-size:10px;'><b>C</b>	Spezial   <b>D</b>	Motor (Benzin/Diesel)</p>
-            <p style='font-size:10px;'><b>E</b>	Motor (220 V)<b>F</b>	Fahrantrieb</p>
-            <p style='font-size:10px;'><b>G</b>	Gelenk   <b>H</b>	handverrollbare Schere</p>
-            <p style='font-size:10px;'><b>I</b>	Motor (380 V)<b>J</b>	Abstützung</p>
-            <p style='font-size:10px;'><b>K</b>	Kette   <b>L</b>	LKW</p>
-            <p style='font-size:10px;'><b>M</b>	Mast   <b>N</b>	Allradlenkung</p>
-            <p style='font-size:10px;'><b>O</b>	Pendelachse<b>P</b>	Personenlift</p>
-            <p style='font-size:10px;'><b>R</b>	Korbarm<b>S</b>	Schere</p>
-            <p style='font-size:10px;'><b>T</b>	Teleskop   <b>V</b>	vergrößerbare Plattform</p>
-            <p style='font-size:10px;'><b>W</b>	bedingt geländefähig<b>X</b>	Allrad</p>
-            <p style='font-size:10px;'><b>Y</b>	verschiebbare Plattform   <b>Z</b>	Verschiedenes</p>">?
+            data-content="<p style='font-size:10px;'><b>S</b>  starr   <b>R</b>	rotierend</p>">?
     </button></th>
             <th data-placeholder="z.B. >17">Hubhöhe</th>
             <th data-placeholder="z.B. >4000">Hublast</th>
@@ -40,7 +29,7 @@
     <tbody>
 {% for buehne in buehnen %}   
     <tr>
-        <td><a href="/wa/web/app.php/arbeitsbuehne/show/{{buehne.id}}" onclick="OpenLink(this); return false">{{buehne.name}}</a></td>
+        <td><a href="/wa/web/app.php/arbeitsbuehne/show/{{buehne.id}}" onclick="OpenLink(this); return false"><button>{{buehne.name}}</button></a></td>
         <td>{{buehne.ahoehe}} m</td>
         <td>{{buehne.korblast|replace({'.00': ''})}} kg</td>
         <td>{{buehne.reichweite}} m</td>
@@ -58,6 +47,7 @@
    
     <script>
 $(function() {
+
 
   // NOTE: $.tablesorter.theme.bootstrap is ALREADY INCLUDED in the jquery.tablesorter.widgets.js
   // file; it is included here to show how you can modify the default classes
@@ -90,7 +80,7 @@ $(function() {
     // this will apply the bootstrap theme if "uitheme" widget is included
     // the widgetOptions.uitheme is no longer required to be set
     theme : "bootstrap",
-
+    sortList: [[0,0]] ,
     widthFixed: false,
 
     headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
